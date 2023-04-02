@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from routes import hello
+from routes import hello, ask
 
 app = FastAPI()
 
@@ -17,3 +17,4 @@ async def healthcheck() -> dict[str, str]:
     return {"status": "ok"}
 
 app.include_router(hello.router)
+app.include_router(ask.router)

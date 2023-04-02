@@ -1,6 +1,8 @@
 import os
 import openai
 from dotenv import load_dotenv
+from models.chat_model import Chat
+from models.image_model import Image
 load_dotenv()
 
 openai.api_key = str(os.getenv('OPENAI_API_KEY'))
@@ -17,7 +19,9 @@ class GPTService :
                 {"role": "user", "content": prompt},
             ]
         )
-        return response
+
+        response_obj = Chat(**response)
+        return response_obj
     
     def image_generation(self, image_prompt):
         response = openai.Image.create(
@@ -25,4 +29,5 @@ class GPTService :
             n=1,
             size="1024x1024"
         )
-        return response
+        response_obj = Image(**response)
+        return response_obj
